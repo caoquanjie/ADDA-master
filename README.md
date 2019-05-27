@@ -9,7 +9,7 @@ tensorflow 1.4.0
 numpy
 scipy
 
-## SVHN tO MNIST
+## SVHN to MNIST
 ## encoder network achitecture
 lenet-5:
 input (32,32,3)
