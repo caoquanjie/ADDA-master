@@ -131,20 +131,13 @@ def step1(logdir = './source_model'):
 
     # hybrid loss
     loss = s_loss_mean + reg_loss # `-` for minimize
-
     global_step = tf.Variable(0, trainable=False)
-
-
     train_op = tf.train.AdamOptimizer(learning_rate=1e-3).minimize(loss=loss, global_step=global_step)
 
     # build saver to save best epoch
     all_vars = tf.global_variables()
     var_source = [k for k in all_vars if k.name.startswith("s_encoder")]
     var_cls = [k for k in all_vars if k.name.startswith("classifier")]
-
-
-
-
 
     with tf.name_scope("step1"):
         tf.summary.scalar('s_loss', s_loss_mean)
@@ -163,7 +156,6 @@ def step1(logdir = './source_model'):
             num_batches = target_train_img.shape[0] // config.batch_size
 
             train_acc = 0
-
             for j in range(num_batches):
 
                 svhn_train_img, svhn_train_lab = fill_feed_dict(source_train_img, source_train_lab, j)
@@ -186,7 +178,7 @@ def step1(logdir = './source_model'):
                 train_acc += train_result[0]
             tra_acc = train_acc / num_batches
 
-
+            # only source test every epoch
             test_num = source_test_img.shape[0]
             eval_num = test_num // config.batch_size
             total_accuracy = 0
@@ -268,8 +260,8 @@ def step2(source_dir = './source_model'):
     var_s_g = tf.global_variables(scope='s_encoder')
     var_c_g = tf.global_variables(scope='classifier')
     var_t_g = tf.trainable_variables(scope='t_encoder')
-	
-	# histogram for trainable variables in tensorboard 
+
+    # histogram for trainable variables in tensorboard
     for var in var_s_g:
         tf.summary.histogram(var.op.name,var)
     for var in var_c_g:
@@ -277,31 +269,28 @@ def step2(source_dir = './source_model'):
     for var in var_t_g:
         tf.summary.histogram(var.op.name,var)
 
-	# model param save
+    # model param save
     encoder_saver = tf.train.Saver(var_list=var_s_g)
-	classifier_saver = tf.train.Saver(var_list=var_c_g)
+    classifier_saver = tf.train.Saver(var_list=var_c_g)
 
     # change variables name from s_encoder to t_encoder
     dict_var = {}
 
     for i in source_var:
-		for j in var_t_g:
-			if i[0][1:] in j.name[1:]:
+        for j in var_t_g:
+            if i[0][1:] in j.name[1:]:
                 dict_var[i[0]] = j
 
     fine_turn_saver = tf.train.Saver(var_list=dict_var)
     best_saver = tf.train.Saver(max_to_keep=3)
-    
-	
-	# tensorboard 
-	with tf.name_scope("step2"):
 
-      tf.summary.scalar('d_loss', d_loss)
-      tf.summary.scalar('g_loss', g_loss)
+    # tensorboard
+    with tf.name_scope("step2"):
+
+        tf.summary.scalar('d_loss', d_loss)
+        tf.summary.scalar('g_loss', g_loss)
 
     summary = tf.summary.merge_all()
-
-
 
     # start a session
     best_acc = 0
@@ -361,6 +350,7 @@ def step2(source_dir = './source_model'):
             tra_acc = train_acc / num_batches
 
 
+            # target data test every epoch after adda
             test_num = target_test_img.shape[0]
             eval_num = test_num // config.batch_size
             total_accuracy = 0
@@ -382,7 +372,6 @@ def step2(source_dir = './source_model'):
                 #     best_acc = te_acc
                 # saver_target.save(sess, logdir +"/target/target.ckpt", global_step= i)
                 # saver_dis.save(sess,  logdir +"/discriminater/discriminater.ckpt", global_step= i)
-			#
             logger.info(
                 'epoch {}: train_acc = {:3.4f}'.format(
                     i, tra_acc))
