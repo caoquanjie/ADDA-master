@@ -253,11 +253,6 @@ def step2(source_dir = './source_model'):
     var_target = tf.trainable_variables('t_encoder')
     optim_g = tf.train.AdamOptimizer(1e-4,beta1=0.5, beta2=0.999).minimize(g_loss, var_list=var_target,global_step=global_step)
 
-    with tf.name_scope("step2"):
-
-        tf.summary.scalar('d_loss', d_loss)
-        tf.summary.scalar('g_loss', g_loss)
-
     # the latest checkpoint
     encoder_path = tf.train.latest_checkpoint(source_dir+"/encoder")
     classifier_path = tf.train.latest_checkpoint(source_dir+"/classifier")
@@ -273,7 +268,8 @@ def step2(source_dir = './source_model'):
     var_s_g = tf.global_variables(scope='s_encoder')
     var_c_g = tf.global_variables(scope='classifier')
     var_t_g = tf.trainable_variables(scope='t_encoder')
-
+	
+	# histogram for trainable variables in tensorboard 
     for var in var_s_g:
         tf.summary.histogram(var.op.name,var)
     for var in var_c_g:
@@ -281,24 +277,27 @@ def step2(source_dir = './source_model'):
     for var in var_t_g:
         tf.summary.histogram(var.op.name,var)
 
-
+	# model param save
     encoder_saver = tf.train.Saver(var_list=var_s_g)
-
-    classifier_saver = tf.train.Saver(var_list=var_c_g)
+	classifier_saver = tf.train.Saver(var_list=var_c_g)
 
     # change variables name from s_encoder to t_encoder
     dict_var = {}
 
     for i in source_var:
-
-        for j in var_t_g:
-
-            if i[0][1:] in j.name[1:]:
+		for j in var_t_g:
+			if i[0][1:] in j.name[1:]:
                 dict_var[i[0]] = j
 
     fine_turn_saver = tf.train.Saver(var_list=dict_var)
     best_saver = tf.train.Saver(max_to_keep=3)
+    
+	
+	# tensorboard 
+	with tf.name_scope("step2"):
 
+      tf.summary.scalar('d_loss', d_loss)
+      tf.summary.scalar('g_loss', g_loss)
 
     summary = tf.summary.merge_all()
 
