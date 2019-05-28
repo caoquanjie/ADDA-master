@@ -24,13 +24,13 @@ classifier output: (84,10)</br>
 #### More details can be seen in adda.py if you want to design another CNN network</br>
 
 ### usage
-this repositority only implement SVHN to MNIST, you can change another dataset such as USPS to MNIST or MNIST to USPS
+#### this repositority only implement SVHN to MNIST, you can change another dataset such as USPS to MNIST or MNIST to USPS
 if you are interested.</br>
 
 python main.py</br>
 
-#### step1: training the source network</br>
-#### step2: training the target and discriminator network.</br>
-#### step3: test target dataset.</br>
+step1: training the source network</br>
+step2: training the target and discriminator network.</br>
+step3: test target dataset.</br>
 
-#### target accuracy is `63%` (only source) and `77%` (after adda).
+target accuracy is `63%` (only source) and `77%` (after adda).
