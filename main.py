@@ -11,13 +11,13 @@ def main():
 
     args = parser.parse_args()
     if args.step == 1:
-        test.step1()
+        train.step1()
         return
     elif args.step == 2:
-        test.step2()
+        train.step2()
         return
     elif args.step == 3:
-        test.step3()
+        train.step3()
         return
 
 if __name__ == "__main__":
