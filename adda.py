@@ -24,7 +24,7 @@ def s_encoder(inputs, reuse=False, trainable=True):
 
         flat = tf.layers.flatten(conv2_pooling, name='flat')
 
-        fc1 = tf.layers.dense(flat, 128, activation=tf.nn.relu, trainable=trainable, name='fc1')
+        fc1 = tf.layers.dense(flat, 120, activation=tf.nn.relu, trainable=trainable, name='fc1')
         fc2 = tf.layers.dense(fc1, 84, activation=tf.nn.tanh, trainable=trainable, name='fc2')
 
       
@@ -51,7 +51,7 @@ def t_encoder(inputs, reuse=False, trainable=True):
 
         flat = tf.layers.flatten(conv2_pooling, name='flat')
 
-        fc1 = tf.layers.dense(flat, 128, activation=tf.nn.relu, trainable=trainable, name='fc1')
+        fc1 = tf.layers.dense(flat, 120, activation=tf.nn.relu, trainable=trainable, name='fc1')
         fc2 = tf.layers.dense(fc1, 84, activation=tf.nn.tanh, trainable=trainable, name='fc2')
 
     return fc2
