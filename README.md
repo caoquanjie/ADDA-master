@@ -1,7 +1,7 @@
 # ADDA
 # Adversarial domain discrimative adaptation
 
-a tensorflow version implement of CVPR 2017 paper ADDA: [https://arxiv.org/pdf/1702.05464](https://arxiv.org/pdf/1702.05464.html)
+a tensorflow version implement of CVPR 2017 paper ADDA: [https://arxiv.org/pdf/1702.05464](https://arxiv.org/pdf/1702.05464)
 
 ## SVHN to MNIST
 ### Requirements
