@@ -1,16 +1,16 @@
 # ADDA
-# adversarial domain discrimative adaptation
+# Adversarial domain discrimative adaptation
 
-a tensorflow version implement of ADDA
+a tensorflow version implement of CVPR 2017 paper ADDA: [https://arxiv.org/pdf/1702.05464](https://arxiv.org/pdf/1702.05464.html)
 
 ## SVHN to MNIST
-### requirements
+### Requirements
 python 3.6</br>
 tensorflow 1.4.0</br>
 numpy</br>
 scipy</br>
 
-### encoder network achitecture
+### Encoder network achitecture
 **lenet-5**:</br>
 input (32,32,3)</br>
 conv1 filter (5,5,20)  output: (28,28,20)</br>
@@ -23,7 +23,7 @@ classifier output: (84,10)</br>
 
 **More details can be seen in adda.py if you want to design another CNN network</br>**
 
-### usage
+### Usage
 **this repositority only implement SVHN to MNIST, you can change another dataset such as USPS to MNIST or MNIST to USPS
 if you are interested.</br>**
 
