@@ -21,13 +21,17 @@ flat1  output: (1250,120)</br>
 flat2 output: (120,84)</br>
 classifier output: (84,10)</br>
 
-**More details can be seen in adda.py if you want to design another CNN network</br>**
+
+
+More details can be seen in adda.py if you want to design another CNN network</br>
 
 ### Usage
-**this repositority only implement SVHN to MNIST, you can change another dataset such as USPS to MNIST or MNIST to USPS
+This repositority only implement SVHN to MNIST, you can change another dataset such as USPS to MNIST or MNIST to USPS
 if you are interested.</br>**
 
-python main.py</br>
+
+
+Run `python main.py`</br>
 
 step1: training the source network</br>
 step2: training the target and discriminator network.</br>
